@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    image: crpi-r1wme86kfaw7rr3f.cn-shanghai.personal.cr.aliyuncs.com/wangshun_build/wangshun_portfolio:latest
+    container_name: wangshun-portfolio
+    restart: always
+    ports:
+      - "80:80"
