@@ -7,6 +7,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: resume
     steps:
       - uses: actions/checkout@v4
 
@@ -29,6 +32,7 @@ jobs:
           password: "wangshun817"
 
       - name: Build and Push Docker Image
+        working-directory: resume
         run: |
           IMAGE_TAG=crpi-r1wme86kfaw7rr3f.cn-shanghai.personal.cr.aliyuncs.com/wangshun_build/wangshun_portfolio:latest
           docker build -t $IMAGE_TAG .
