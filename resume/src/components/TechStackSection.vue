@@ -15,7 +15,7 @@
 
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-        <!-- Backend & Cloud -->
+        <!-- Backend & Cloud Native -->
         <div class="glass rounded-2xl p-8 glow-border-hover">
           <div class="flex items-center gap-3 mb-8">
             <div class="w-10 h-10 rounded-lg bg-cyber-primary/10 flex items-center justify-center">
@@ -57,13 +57,13 @@
           </div>
         </div>
 
-        <!-- AI & Research -->
+        <!-- AI & Agent -->
         <div class="glass rounded-2xl p-8 glow-border-hover">
           <div class="flex items-center gap-3 mb-8">
             <div class="w-10 h-10 rounded-lg bg-cyber-accent/10 flex items-center justify-center">
               <Brain class="w-5 h-5 text-cyber-accent" />
             </div>
-            <h3 class="text-xl font-bold text-white">AI & Research</h3>
+            <h3 class="text-xl font-bold text-white">AI Agent & LLM</h3>
           </div>
 
           <div class="flex flex-wrap gap-3">
@@ -107,7 +107,7 @@
           <div class="p-4">
             <div class="text-3xl font-bold text-cyber-primary mb-2">Cloud Native</div>
             <p class="text-white/60 text-sm">微服务架构设计与实现</p>
-            <p class="text-white/60 text-sm">容器化与 DevOps 实践</p>
+            <p class="text-white/60 text-sm">RPC 框架与分布式治理</p>
           </div>
           <div class="p-4 border-x border-white/10">
             <div class="text-3xl font-bold text-cyber-secondary mb-2">Full Stack</div>
@@ -115,9 +115,9 @@
             <p class="text-white/60 text-sm">从原型到生产的完整交付</p>
           </div>
           <div class="p-4">
-            <div class="text-3xl font-bold text-cyber-accent mb-2">3D Vision</div>
-            <p class="text-white/60 text-sm">基于 3DGS 的三维重建</p>
-            <p class="text-white/60 text-sm">无人机影像实时建模</p>
+            <div class="text-3xl font-bold text-cyber-accent mb-2">AI Agent</div>
+            <p class="text-white/60 text-sm">LangChain4j 工作流编排</p>
+            <p class="text-white/60 text-sm">LLM 驱动的自动化系统</p>
           </div>
         </div>
       </div>
@@ -129,13 +129,16 @@
 import { Server, Monitor, Brain, Wrench } from 'lucide-vue-next'
 
 const backendTechs = [
-  { name: 'Java', level: '精通' },
-  { name: 'Spring Boot', level: '精通' },
-  { name: 'Netty', level: '熟练' },
+  { name: 'Java 21', level: '精通' },
+  { name: 'Spring Boot 3', level: '精通' },
+  { name: 'Dubbo 3', level: '熟练' },
+  { name: 'Netty 4', level: '熟练' },
+  { name: 'Nacos', level: '熟练' },
+  { name: 'ByteBuddy', level: '熟练' },
   { name: 'Python', level: '熟练' },
   { name: 'MySQL', level: '熟练' },
-  { name: 'Redis', level: '熟练' },
-  { name: 'RabbitMQ', level: '了解' },
+  { name: 'Redis/Redisson', level: '熟练' },
+  { name: 'Caffeine', level: '熟练' },
 ]
 
 const frontendTechs = [
@@ -144,22 +147,26 @@ const frontendTechs = [
   { name: 'TailwindCSS', level: '熟练' },
   { name: 'Vite', level: '熟练' },
   { name: 'Element Plus', level: '熟练' },
+  { name: 'SSE', level: '熟练' },
 ]
 
 const aiTechs = [
-  { name: '3DGS', level: '研究中' },
-  { name: 'LangChain', level: '熟练' },
-  { name: 'LLM API', level: '熟练' },
-  { name: 'OpenCV', level: '了解' },
+  { name: 'LangChain4j', level: '熟练' },
+  { name: 'LangGraph4j', level: '熟练' },
+  { name: 'Claude API', level: '熟练' },
+  { name: 'Gemini API', level: '熟练' },
+  { name: 'AST 分析', level: '熟练' },
+  { name: 'Prompt Engineering', level: '熟练' },
 ]
 
 const devopsTechs = [
   { name: 'Docker', level: '精通' },
-  { name: 'CI/CD', level: '熟练' },
+  { name: 'GitHub App', level: '熟练' },
   { name: 'GitHub Actions', level: '熟练' },
+  { name: 'CI/CD', level: '熟练' },
   { name: 'Nginx', level: '熟练' },
-  { name: 'Kubernetes', level: '了解' },
   { name: 'Linux', level: '熟练' },
+  { name: 'Kubernetes', level: '了解' },
 ]
 </script>
 

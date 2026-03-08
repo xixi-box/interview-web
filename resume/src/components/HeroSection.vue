@@ -8,42 +8,42 @@
 
     <div class="container mx-auto px-4 text-center relative z-10">
       <!-- Status badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-fade-in">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 animate-fade-in">
         <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
         <span class="text-sm text-cyber-primary/80">Available for opportunities</span>
       </div>
 
       <!-- Main title with typewriter effect -->
-      <h1 class="text-5xl md:text-7xl font-bold mb-4">
+      <h1 class="text-5xl md:text-7xl font-bold mb-3">
         <span class="gradient-text glow-text">王顺</span>
       </h1>
-      <h2 class="text-2xl md:text-4xl font-light mb-6 text-white/90">
+      <h2 class="text-2xl md:text-4xl font-light mb-4 text-white/90">
         Wang Shun
       </h2>
 
       <!-- Typewriter subtitle -->
-      <div class="h-8 mb-8">
+      <div class="h-8 mb-6">
         <p class="text-xl md:text-2xl text-cyber-primary">
           <span class="typewriter-text">{{ displayText }}</span>
           <span class="cursor"></span>
         </p>
       </div>
 
-      <!-- Core info cards -->
-      <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+      <!-- Core info cards - 居中对称布局 -->
+      <div class="flex flex-col md:flex-row justify-center gap-6 max-w-3xl mx-auto mb-8">
         <!-- Education -->
-        <div class="glass rounded-xl p-6 text-left glow-border-hover">
-          <div class="flex items-center gap-2 mb-4">
+        <div class="glass rounded-xl p-5 text-left glow-border-hover flex-1 max-w-md">
+          <div class="flex items-center gap-2 mb-3">
             <GraduationCap class="w-5 h-5 text-cyber-primary" />
             <span class="text-cyber-primary font-semibold">Education</span>
           </div>
-          <div class="space-y-3 text-sm">
+          <div class="space-y-2 text-sm">
             <div>
               <p class="text-white font-medium">上海海洋大学 · 硕士</p>
               <p class="text-white/60">计算机技术 (2025.09 - 2028.06)</p>
               <p class="text-cyber-primary/70 text-xs mt-1">研究方向：基于 3DGS 的无人机影像实时三维建模</p>
             </div>
-            <div class="border-t border-cyber-primary/10 pt-3">
+            <div class="border-t border-cyber-primary/10 pt-2">
               <p class="text-white font-medium">山东理工大学 · 本科</p>
               <p class="text-white/60">数据科学与大数据技术 (2021.09 - 2025.06)</p>
             </div>
@@ -51,12 +51,12 @@
         </div>
 
         <!-- Contact -->
-        <div class="glass rounded-xl p-6 text-left glow-border-hover">
-          <div class="flex items-center gap-2 mb-4">
+        <div class="glass rounded-xl p-5 text-left glow-border-hover flex-1 max-w-md">
+          <div class="flex items-center gap-2 mb-3">
             <Contact class="w-5 h-5 text-cyber-secondary" />
             <span class="text-cyber-secondary font-semibold">Contact</span>
           </div>
-          <div class="space-y-4">
+          <div class="space-y-3">
             <a href="mailto:2606209307@qq.com" class="flex items-center gap-3 text-white/80 hover:text-cyber-primary transition-colors group">
               <Mail class="w-4 h-4 group-hover:scale-110 transition-transform" />
               <span class="text-sm">2606209307@qq.com</span>
@@ -74,20 +74,20 @@
       </div>
 
       <!-- Role badges -->
-      <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
         <span class="px-4 py-2 rounded-full border border-cyber-primary/30 text-cyber-primary bg-cyber-primary/5 text-sm">
           Cloud Native Developer
         </span>
         <span class="px-4 py-2 rounded-full border border-cyber-secondary/30 text-cyber-secondary bg-cyber-secondary/5 text-sm">
-          3D Vision Researcher
+          Full Stack Engineer
         </span>
         <span class="px-4 py-2 rounded-full border border-cyber-accent/30 text-cyber-accent bg-cyber-accent/5 text-sm">
-          Full Stack Engineer
+          AI Agent Developer
         </span>
       </div>
 
       <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce">
         <ChevronDown class="w-6 h-6 text-cyber-primary/50" />
       </div>
     </div>
@@ -100,9 +100,9 @@ import { GraduationCap, Contact, Mail, Github, MapPin, ChevronDown } from 'lucid
 
 const roles = [
   'Cloud Native Developer',
-  '3D Vision Researcher',
   'Microservices Architect',
-  'DevOps Engineer'
+  'AI Agent Developer',
+  'Full Stack Engineer'
 ]
 
 const displayText = ref('')
