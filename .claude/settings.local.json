@@ -15,7 +15,7 @@
       "mcp__chrome-devtools__take_snapshot",
       "mcp__chrome-devtools__close_page",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:42.193.105.133)",
+      "WebFetch(domain:120.26.186.0)",
       "mcp__chrome-devtools__click",
       "mcp__chrome-devtools__evaluate_script",
       "Bash(pnpm build:*)",
