@@ -137,12 +137,7 @@
         </div>
 
         <!-- Project 3: Agentic Cloud IDE -->
-        <div class="project-card glass rounded-2xl overflow-hidden glow-border-hover border border-white/5 relative">
-          <!-- Coming soon overlay -->
-          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm z-10 flex items-center justify-center" v-if="false">
-            <span class="px-4 py-2 bg-white/10 rounded-full text-white/80 text-sm">🚧 敬请期待</span>
-          </div>
-
+        <div class="project-card glass rounded-2xl overflow-hidden glow-border-hover border border-white/5">
           <!-- Project header -->
           <div class="p-6 border-b border-white/5">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyber-accent/20 to-cyber-secondary/20 flex items-center justify-center mb-4">
@@ -184,13 +179,16 @@
             </div>
 
             <!-- Action button -->
-            <button
-              disabled
-              class="w-full flex items-center justify-center gap-2 rounded-lg py-3 px-6 font-medium bg-white/5 border border-white/10 text-white/40 cursor-not-allowed"
+            <a
+              href="http://120.26.186.0:8888"
+              target="_blank"
+              class="cyber-btn w-full flex items-center justify-center gap-2 rounded-lg text-cyber-accent"
+              style="background: linear-gradient(135deg, rgba(112, 0, 255, 0.1), rgba(255, 0, 160, 0.1));"
             >
-              <Construction class="w-4 h-4" />
-              <span>敬请期待</span>
-            </button>
+              <Rocket class="w-4 h-4" />
+              <span>进入云端IDE</span>
+              <ExternalLink class="w-3 h-3" />
+            </a>
           </div>
         </div>
       </div>
@@ -199,7 +197,7 @@
 </template>
 
 <script setup lang="ts">
-import { Rocket, Shield, Cloud, ExternalLink, Github, Check, Construction } from 'lucide-vue-next'
+import { Rocket, Shield, Cloud, ExternalLink, Github, Check } from 'lucide-vue-next'
 </script>
 
 <style scoped>

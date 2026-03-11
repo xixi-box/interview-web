@@ -425,13 +425,15 @@
             </div>
 
             <!-- Action -->
-            <button
-              disabled
-              class="inline-flex items-center gap-2 rounded-xl px-6 py-3 font-medium bg-white/5 border border-white/10 text-white/40 cursor-not-allowed"
+            <a
+              href="http://120.26.186.0:8888"
+              target="_blank"
+              class="cyber-btn-accent inline-flex items-center gap-2 rounded-xl px-6 py-3 font-medium"
             >
-              <Construction class="w-5 h-5" />
-              <span>演示筹备中</span>
-            </button>
+              <Rocket class="w-5 h-5" />
+              <span>进入云端IDE</span>
+              <ExternalLink class="w-4 h-4" />
+            </a>
           </div>
 
           <!-- Right: Debug Records -->
@@ -565,7 +567,7 @@
 
 <script setup lang="ts">
 import {
-  Rocket, Shield, Cloud, ExternalLink, Github, Check, Construction, Zap, Code2,
+  Rocket, Shield, Cloud, ExternalLink, Github, Check, Zap, Code2,
   Bug, AlertTriangle, GitBranch, Box, Server, ChevronRight,
   Sparkles, Brain, Terminal, MessageSquare, Layers, Cloud as CloudIcon
 } from 'lucide-vue-next'
@@ -603,5 +605,19 @@ import {
   border-color: rgba(255, 0, 160, 0.6);
   transform: translateY(-2px);
   box-shadow: 0 10px 40px rgba(255, 0, 160, 0.2);
+}
+
+.cyber-btn-accent {
+  background: linear-gradient(135deg, rgba(112, 0, 255, 0.15), rgba(255, 0, 160, 0.15));
+  border: 1px solid rgba(112, 0, 255, 0.4);
+  color: #7000ff;
+  transition: all 0.3s ease;
+}
+
+.cyber-btn-accent:hover {
+  background: linear-gradient(135deg, rgba(112, 0, 255, 0.25), rgba(255, 0, 160, 0.25));
+  border-color: rgba(112, 0, 255, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(112, 0, 255, 0.2);
 }
 </style>
