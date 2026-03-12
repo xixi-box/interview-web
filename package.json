@@ -1,0 +1,10 @@
+{
+  "name": "log-server",
+  "version": "1.0.0",
+  "description": "Portfolio log server with geo and device parsing",
+  "main": "log-server.js",
+  "dependencies": {
+    "maxmind": "^4.3.23",
+    "ua-parser-js": "^2.0.3"
+  }
+}

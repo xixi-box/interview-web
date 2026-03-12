@@ -20,8 +20,8 @@
         <div class="stat-label">总访问量</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value">{{ stats.topIps?.length || 0 }}</div>
-        <div class="stat-label">独立IP</div>
+        <div class="stat-value">{{ stats.uniqueIps || stats.topIps?.length || 0 }}</div>
+        <div class="stat-label">独立访客</div>
       </div>
       <div class="stat-card">
         <div class="stat-value" :class="statusClass">{{ stats.statusCodes[200] || 0 }}</div>
@@ -33,7 +33,51 @@
       </div>
     </div>
 
-    <!-- Top IP -->
+    <!-- 设备分布 -->
+    <div class="section" v-if="stats?.devices">
+      <h3>设备分布</h3>
+      <div class="device-stats">
+        <div class="device-item" v-if="stats.devices.desktop">
+          <span class="device-icon">💻</span>
+          <span class="device-name">桌面端</span>
+          <span class="device-count">{{ stats.devices.desktop }}</span>
+        </div>
+        <div class="device-item" v-if="stats.devices.mobile">
+          <span class="device-icon">📱</span>
+          <span class="device-name">手机</span>
+          <span class="device-count">{{ stats.devices.mobile }}</span>
+        </div>
+        <div class="device-item" v-if="stats.devices.tablet">
+          <span class="device-icon">📱</span>
+          <span class="device-name">平板</span>
+          <span class="device-count">{{ stats.devices.tablet }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 访问地区 -->
+    <div class="section" v-if="stats?.topCountries?.length">
+      <h3>Top 访问地区</h3>
+      <div class="top-list">
+        <div v-for="item in stats.topCountries" :key="item.country" class="top-item">
+          <span class="country">{{ item.country }}</span>
+          <span class="count">{{ item.count }} 次</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 浏览器 -->
+    <div class="section" v-if="stats?.topBrowsers?.length">
+      <h3>Top 浏览器</h3>
+      <div class="top-list">
+        <div v-for="item in stats.topBrowsers" :key="item.browser" class="top-item">
+          <span class="browser">{{ item.browser }}</span>
+          <span class="count">{{ item.count }} 次</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 访问IP -->
     <div class="section" v-if="stats?.topIps?.length">
       <h3>Top 访问IP</h3>
       <div class="top-list">
@@ -49,26 +93,36 @@
       <table class="log-table">
         <thead>
           <tr>
-            <th>IP</th>
-            <th>方法</th>
+            <th>IP / 地区</th>
+            <th>设备信息</th>
             <th>路径</th>
             <th>状态</th>
             <th>时间</th>
-            <th>User-Agent</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(log, index) in logs" :key="index">
-            <td class="ip-cell">{{ log.ip }}</td>
-            <td>
-              <span :class="['method', log.method.toLowerCase()]">{{ log.method }}</span>
+            <td class="ip-cell">
+              <div class="ip-info">
+                <span class="ip">{{ log.ip }}</span>
+                <span class="geo" v-if="log.geo">{{ formatGeo(log.geo) }}</span>
+              </div>
             </td>
-            <td class="path-cell" :title="log.path">{{ log.path }}</td>
+            <td class="device-cell">
+              <div class="device-info" v-if="log.device">
+                <span :class="['device-type', log.device.type]">{{ getDeviceIcon(log.device.type) }}</span>
+                <span class="device-detail">{{ log.device.browser }} / {{ log.device.os }}</span>
+              </div>
+              <span v-else class="unknown">-</span>
+            </td>
+            <td class="path-cell" :title="log.path">
+              <span :class="['method', log.method.toLowerCase()]">{{ log.method }}</span>
+              <span class="path-text">{{ log.path }}</span>
+            </td>
             <td>
               <span :class="['status', getStatusClass(log.status)]">{{ log.status }}</span>
             </td>
             <td class="time-cell">{{ log.time }}</td>
-            <td class="ua-cell" :title="log.ua">{{ truncateUA(log.ua) }}</td>
           </tr>
         </tbody>
       </table>
@@ -82,8 +136,25 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
+interface GeoInfo {
+  country: string
+  region: string
+  city: string
+  latitude?: number
+  longitude?: number
+}
+
+interface DeviceInfo {
+  type: string
+  os: string
+  browser: string
+  device: string
+}
+
 interface LogEntry {
   ip: string
+  geo: GeoInfo | null
+  device: DeviceInfo | null
   method: string
   path: string
   status: number
@@ -93,8 +164,12 @@ interface LogEntry {
 
 interface Stats {
   total: number
+  uniqueIps?: number
   topIps: { ip: string; count: number }[]
   topPaths: { path: string; count: number }[]
+  topCountries: { country: string; count: number }[]
+  topBrowsers: { browser: string; count: number }[]
+  devices: Record<string, number>
   statusCodes: Record<number, number>
 }
 
@@ -132,11 +207,25 @@ function getStatusClass(status: number): string {
   return ''
 }
 
-function truncateUA(ua: string): string {
-  if (ua.length > 40) {
-    return ua.substring(0, 40) + '...'
+function formatGeo(geo: GeoInfo | null): string {
+  if (!geo) return '-'
+  const parts = []
+  if (geo.city && geo.city !== '-') parts.push(geo.city)
+  if (geo.region && geo.region !== '-' && geo.region !== geo.city) parts.push(geo.region)
+  if (geo.country && geo.country !== '-') parts.push(geo.country)
+  return parts.length > 0 ? parts.join(', ') : '-'
+}
+
+function getDeviceIcon(type: string): string {
+  const icons: Record<string, string> = {
+    mobile: '📱 手机',
+    tablet: '📱 平板',
+    desktop: '💻 桌面',
+    tv: '📺 TV',
+    wearable: '⌚ 穿戴',
+    unknown: '❓'
   }
-  return ua
+  return icons[type] || '❓'
 }
 
 watch(autoRefresh, (val) => {
@@ -261,12 +350,39 @@ onUnmounted(() => {
   gap: 10px;
 }
 
-.top-item .ip {
+.top-item .ip, .top-item .country, .top-item .browser {
   color: #00f0ff;
 }
 
 .top-item .count {
   color: #888;
+}
+
+.device-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.device-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
+.device-icon {
+  font-size: 18px;
+}
+
+.device-name {
+  color: #ccc;
+}
+
+.device-count {
+  color: #00f0ff;
+  font-weight: bold;
 }
 
 .log-table-container {
@@ -299,13 +415,53 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.02);
 }
 
-.ip-cell {
+.ip-cell .ip-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ip-cell .ip {
   color: #00f0ff;
   font-family: monospace;
 }
 
+.ip-cell .geo {
+  font-size: 11px;
+  color: #888;
+}
+
+.device-cell .device-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.device-type {
+  font-size: 12px;
+}
+
+.device-type.mobile, .device-type.tablet {
+  color: #4caf50;
+}
+
+.device-type.desktop {
+  color: #2196f3;
+}
+
+.device-detail {
+  font-size: 11px;
+  color: #888;
+}
+
 .path-cell {
   max-width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.path-text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -316,6 +472,7 @@ onUnmounted(() => {
   border-radius: 3px;
   font-weight: 600;
   font-size: 11px;
+  flex-shrink: 0;
 }
 
 .method.get { background: #4caf50; color: #fff; }
@@ -337,13 +494,10 @@ onUnmounted(() => {
 .time-cell {
   white-space: nowrap;
   color: #888;
+  font-size: 12px;
 }
 
-.ua-cell {
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.unknown {
   color: #666;
 }
 
@@ -356,6 +510,11 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .log-table th:nth-child(4),
+  .log-table td:nth-child(4) {
+    display: none;
   }
 }
 </style>
