@@ -139,7 +139,7 @@
                 <ExternalLink class="w-3 h-3" />
               </a>
               <a
-                href="https://github.com/xixi-box/ai-code"
+                href="https://github.com/wangshun-china/ai-code"
                 target="_blank"
                 class="btn btn-outline inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-medium text-sm"
               >
@@ -403,7 +403,7 @@
                 <ExternalLink class="w-3 h-3" />
               </a>
               <a
-                href="https://github.com/xixi-box/lumina-rpc"
+                href="https://github.com/wangshun-china/lumina-rpc"
                 target="_blank"
                 class="btn btn-outline inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-medium text-sm"
               >
@@ -581,7 +581,7 @@
             <!-- Links -->
             <div class="flex flex-wrap gap-3">
               <a
-                href="https://github.com/xixi-box/AutoGuard-AI-Reviewer"
+                href="https://github.com/wangshun-china/AutoGuard-AI-Reviewer"
                 target="_blank"
                 class="btn btn-primary inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-medium text-sm"
               >
